@@ -7,7 +7,7 @@ const bcrypt = require('bcryptjs');
 // Register route
 const registerController = async (req,res)=>{
     try {
-        const { username, email, password,address, phone } = req.body;
+        const { username, email, password, address, phone } = req.body;
 
         //validation
         if(!username || !email || !password || !address || !phone){
@@ -50,22 +50,49 @@ const registerController = async (req,res)=>{
         console.log(error);
         res.status(500).send({
             success:false,
-            message:"Error in Registration API"
+            message:"Server Error",
         });
     }
 };
 
-// Login route
-
-const loginController = async (req,res)=>{
-   try{
-
-   }catch(error){
-       console.log(error);
-       console.log("hii");
-       
-   }
-}
+// // Login route
+// const loginController = async (req,res)=>{
+//    try{
+//         // verify user
+//         const {email, password} = req.body
+//         if(!email || !password){
+//             res.status(500).send({
+//                 success:false,
+//                 message:"Please provide email and password"
+//             })
+//         }
+//         // check existing user
+//         const existingUser = await userModel.find({email,password});
+//         if(!existingUser){
+//             res.status(500).send({
+//                 success:false,
+//                 message:"Create an account first"
+//             })
+//         }
+//         // hashed password compare
+//         const match = bcrypt.compare(password,existingUser.password);
+//         if(!match){
+//             res.status(500).send({
+//                 success:false,
+//                 message:"Wrong email or password"
+//             })
+//         }
+//         res.status(200).send({
+//             success:true,
+//             message:"Login Successfully"
+//         })
+//    }catch(error){
+//        res.status(500).send({
+//            success:false,
+//            message:"Error in Login API"
+//        })
+//    }
+// }
 
 
 
