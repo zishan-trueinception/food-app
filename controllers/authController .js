@@ -58,12 +58,43 @@ const registerController = async (req,res)=>{
 // Login route
 
 const loginController = async (req,res)=>{
-   try{
+   try {
 
-   }catch(error){
-       console.log(error);
-   }
-}
+    const { email, password } = req.body;
+    if(!email || !password){
+        return res.status(500).send({
+            success:false,
+            message:"Please provide email and password"
+        });
+    };
+    const user = await userModel.findOne({email});
+    if(!user){
+        return res.status(500).send({
+            success:false,
+            message:"User not found"
+        });
+    };
+    const match = await bcrypt.compare(password,user.password);
+    if(!match){
+        return res.status(500).send({
+            success:false,
+            message:"Incorrect password"
+        });
+    };
+    res.status(200).send({
+        success:true,
+        message:"Login successfully",
+        user
+    });
+  
+
+   } catch (error) {
+    console.log(error);
+    res.status(500).send({
+        success:false,
+        message:"Error in Registration API"
+    });
+}}
 
 
 
