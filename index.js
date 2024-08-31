@@ -22,6 +22,7 @@ app.use(morgan("dev")); // http request logger
 
 // routes imports
 app.use('/api/v1/test',require('./routes/testRoutes')); //
+app.use('/api/v1/auth',require('./routes/authRoutes')); //
 
 // routes
 app.get('/',(req,res)=>{
