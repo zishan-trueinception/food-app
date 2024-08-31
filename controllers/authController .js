@@ -58,7 +58,11 @@ const registerController = async (req,res)=>{
 // Login route
 
 const loginController = async (req,res)=>{
-   
+   try{
+
+   }catch(error){
+       console.log(error);
+   }
 }
 
 
