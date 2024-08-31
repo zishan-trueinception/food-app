@@ -24,6 +24,7 @@ app.use(morgan("dev")); // http request logger
 app.use('/api/v1/test',require('./routes/testRoutes')); //
 app.use('/api/v1/auth',require('./routes/authRoutes')); //
 
+
 // routes
 app.get('/',(req,res)=>{
     res.status(200).send('<h1>Welcome to Food API Project</h1>')

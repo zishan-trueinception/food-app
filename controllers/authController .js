@@ -1,5 +1,10 @@
 const userModel = require("../models/userModel");
+const { route } = require("../routes/testRoutes");
+const bcrypt = require('bcryptjs');
 
+
+
+// Register route
 const registerController = async (req,res)=>{
     try {
         const { username, email, password,address, phone } = req.body;
@@ -10,11 +15,22 @@ const registerController = async (req,res)=>{
                 success:false,
                 message:"Please provide all fields"
             });
-        }
+        };
+
+        // Hashed password
+
+       var salt = await bcrypt.genSalt(10);
+       const hashedPassword = await bcrypt.hash(password,salt);
 
 
         // create new user
-        const user = await userModel.create({username, email, password, address, phone});
+        const user = await userModel.create({
+            username,
+            email, 
+            password: hashedPassword, 
+            address, 
+            phone
+        });
          res.status(201).send({
             success:true,
             message:"Successfully Registered",
@@ -37,8 +53,15 @@ const registerController = async (req,res)=>{
             message:"Error in Registration API"
         });
     }
+};
+
+// Login route
+
+const loginController = async (req,res)=>{
+   
 }
 
 
 
-module.exports = { registerController }
+
+module.exports = { registerController , loginController }
