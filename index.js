@@ -3,6 +3,7 @@ const colors = require('colors');
 const cors = require('cors');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
+const connectDB = require('./config/db');
 
 // rest object
 const app = express()
@@ -10,8 +11,12 @@ const app = express()
 // dotenv config
 dotenv.config();
 
+//connection stablish
+
+connectDB();
+
 // middlewares
-app.use(express.json()); // to accept json data
+app.use(express.json()); // to accept json data 
 app.use(cors()); // cross origin resource sharing
 app.use(morgan("dev")); // http request logger
 
