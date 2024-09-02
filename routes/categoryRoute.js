@@ -6,5 +6,6 @@ const router = expres.Router();
 //routes
 //For Food Category
 router.get("/Category",categorycontroller);
+router.post("/Category",categorycontroller);
 
 module.exports = router

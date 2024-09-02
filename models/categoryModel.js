@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 // schema
 
 const categorySchema = new mongoose.Schema({
-    catergoryname: {
+    categoryName: {
         type: String,
        
     },
@@ -17,7 +17,7 @@ const categorySchema = new mongoose.Schema({
     },
     options: {
         type: Array,
-        required:[true, "password is required"]
+        
     },
 
     discription: {
