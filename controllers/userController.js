@@ -44,7 +44,7 @@ const updateUserController = async (req,res) => {
                 message:"User not found"
             })
         }
-        // update user
+        // update user data
         const {username,address,phone} = req.body
         if(username)user.username = username
         if(address)user.address = address
