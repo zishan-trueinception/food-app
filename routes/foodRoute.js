@@ -1,11 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const { orderStatusController, createfoodController } = require("../controllers/foodController");
+const { orderStatusController, createfoodController, getAllfoodController } = require("../controllers/foodController");
 const  {authMiddleware} = require("../middlewares/authMiddleware");
 
 
-// Food Route
+// Food Create Route !! Post
 router.post("/create",authMiddleware,createfoodController);
+
+// Food Get Route !! Get
+
+router.get("/getall",authMiddleware,getAllfoodController);
 
 
 
