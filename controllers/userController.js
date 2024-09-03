@@ -115,10 +115,74 @@ const updatePasswordController = async (req, res) => {
     }
 };
 
+// RESET USER PASSWORD
+const resetPasswordController = async (req, res) => {
+    try {
+        // find user by email new password and answer
+        const {email, newPassword, answer} = req.body
+        // validation
+        if(!email || !newPassword || !answer){
+            return res.status(400).send({
+                success: false,
+                message: "Please provide all fields" 
+            })
+        }
+        const user = await userModel.findOne({email, answer})
+        // validation
+        if(!user){
+            return res.status(400).send({
+                success: false,
+                message: "User Not Found or Invalid answer" 
+            })
+        }
+        // Hasing Password
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(newPassword, salt);
+        // update password
+        user.password = hashedPassword
+        // store in db
+        await user.save()
+        res.status(200).send({
+            success: true,
+            message: "Password Reset Successfully"
+        })
+    } catch (error) {
+        res.status(400).send({
+            success: false,
+            message: "Error in Resetting Password",
+            error
+        })
+    }
+}
 
+// DELETE PROFILE | ACCOUNT
+// user deleted by "_id" in req.body
+const deleteUserController = async (req,res) => {
+    try {
+        // find user
+        const user = await userModel.findByIdAndDelete(req.body._id)
+        if(!user){
+            return res.status(404).send({
+                success:false,
+                message:"User not found"
+            })
+        }
+        res.status(200).send({
+            success:true,
+            message:"User Deleted Successfully",
+        })
+    } catch (error) {
+        res.status(500).send({
+            success:false,
+            message:"Error in Deleting Api",
+        })
+    }
+}
 
 module.exports = { 
     getUserController, 
     updateUserController,
-    updatePasswordController
+    updatePasswordController,
+    resetPasswordController,
+    deleteUserController
 }
