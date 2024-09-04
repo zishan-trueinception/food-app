@@ -1,8 +1,9 @@
-const express = require("express");
-const router = express.Router();
-const  {authMiddleware} = require("../middlewares/authMiddleware");
+const expres = require('express');
+const { authMiddleware } = require('../middlewares/authMiddleware');
+const { createResturantController } = require('../controllers/restaurantController');
+const router = expres.Router();
 
-// Create Reastaurant Route !! Post
-router.post("/create",authMiddleware);
+//routes
+router.post('/create', authMiddleware, createResturantController);
 
 module.exports = router
