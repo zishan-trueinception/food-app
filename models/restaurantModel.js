@@ -43,6 +43,10 @@ const restaurantSchema = new mongoose.Schema({
   },
   code: {
      type: String
+  },
+  address:{
+   type: String,
+   require:[true, "address is required"]
   }  
  
     

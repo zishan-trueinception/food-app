@@ -57,7 +57,7 @@ const registerController = async (req, res) => {
   };
 
 
-// Login route
+// Login route ....
 const loginController = async (req,res)=>{
    try {
     const { email, password } = req.body;
