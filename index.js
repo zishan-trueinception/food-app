@@ -22,12 +22,12 @@ app.use(morgan("dev")); // http request logger
 
 // routes imports
 app.use('/api/v1/test',require('./routes/testRoutes')); // test route
-app.use('/api/v1/auth',require('./routes/authRoutes')); // auth route
+app.use('/api/v1/auth',require('./routes/adminRoutes')); // admin route
+app.use('/api/v1/auth',require('./routes/authRoutes')); // authentication route
 app.use('/api/v1/category',require('./routes/categoryRoute')); // category route
 app.use('/api/v1/user',require('./routes/userRoute')); // user route
 app.use('/api/v1/food',require('./routes/foodRoute')); // food route
-app.use('/api/v1/restaurant',require('./routes/restaurantRoute'));     // order routee
-
+app.use('/api/v1/restaurant',require('./routes/restaurantRoute'));  // order routee
 
 
 // routes

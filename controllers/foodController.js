@@ -1,5 +1,6 @@
 const restaurantModel = require("../models/restaurantModel");
 const foodModel = require("../models/foodModel");
+const orderModel = require("../models/orderModel");
 
 // create food controller
 const createfoodController = async (req, res) => {
@@ -272,7 +273,7 @@ const orderStatusController = async (req, res) => {
         })
         
     } catch (error) {
-        console.lohg(error);
+        console.log(error);
         res.status(500).send({
             success:false,
             message:"Error in order api",
@@ -281,6 +282,44 @@ const orderStatusController = async (req, res) => {
         
     }
     
+};
+// Order Status controller
+const placeOrderController = async (req, res) => {
+
+    try {
+        const {cart} = req.body;
+        if(!cart){
+            return res.status(404).send({
+                success: false, 
+                message:"Please provide cart and payment details"
+            })
+        }
+        let total = 0;
+        // calculate total
+        cart.map((i)=>{
+            total = total + i.price
+        });
+        const newOrder = await orderModel({
+            foods:cart,
+            payment:total,
+            buyer:req.body.id
+        });
+        await newOrder.save();
+        res.status(200).send({
+            success: true,
+            message: "Order placed successfully",
+            newOrder
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success:false,
+            message:"Error in order api",
+            error
+        })
+        
+    }
+
 }
 
 
@@ -292,7 +331,7 @@ module.exports = {
     getSingleFoodController,
     getFoodbyRestaurantController,
     updateFoodController,
-    deletefoodController}
+    deletefoodController,placeOrderController}
 
 
 
