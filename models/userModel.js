@@ -25,9 +25,9 @@ const userSchema = new mongoose.Schema({
     },
     usertype: {
         type: String,
-        required:[true, "usertype is required"],
-        default: "client",
-        enum:["client", "admin","vendor","driver"]
+        required: [true, "usertype is required"],
+        default: "user",
+        enum: ["user", "admin"]
     },
     profile:{
         type: String,

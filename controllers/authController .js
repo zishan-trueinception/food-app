@@ -1,3 +1,4 @@
+const adminModel = require("../models/adminModel");
 const userModel = require("../models/userModel");
 const { route } = require("../routes/testRoutes");
 const bcrypt = require('bcryptjs');
@@ -108,4 +109,5 @@ const loginController = async (req,res)=>{
 
 
 
-module.exports = { registerController , loginController }
+
+module.exports = { registerController , loginController}

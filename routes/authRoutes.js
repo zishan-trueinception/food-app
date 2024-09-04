@@ -1,5 +1,6 @@
 const expres = require('express');
 const { registerController, loginController} = require('../controllers/authController ');
+const adminMiddlewere = require('../middlewares/adminMiddlewere');
 
 const router = expres.Router();
 
