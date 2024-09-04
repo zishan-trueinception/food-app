@@ -1,30 +1,18 @@
 const mongoose = require('mongoose');
 
-// schema
+// Food Category Shema
 
 const categorySchema = new mongoose.Schema({
-    categoryName: {
+    title: {
         type: String,
-       
+        require:[true, " category title is requrie"]
     },
-    name: {
-        type: String,
-       
-    },
-    img:{
+    imgUrl:{
         type: String,
         default: "https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_640.png"
     },
-    options: {
-        type: Array,
-        
-    },
-
-    discription: {
-        type: String,
-    },
- 
-    
-});
+},
+{timestamps: true}
+);
 
 module.exports = mongoose.model('foodCategory',categorySchema) 
