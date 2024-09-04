@@ -2,7 +2,7 @@
 
 const restaurantModel = require("../models/restaurantModel")
 
- 
+ // CREATE RESTURANTS CONTROLLER
 const createResturantController = async (req, res) => {
     try {
         const {
@@ -54,4 +54,70 @@ const createResturantController = async (req, res) => {
     }
 }
 
-module.exports = { createResturantController }
+// GET ALL RESTURANTS
+const getAllResturantController = async (req, res) => {
+    try {
+        // find resturant
+        const resturants = await restaurantModel.find({})
+        // validation
+        if(!resturants){
+            return res.status(404).send({
+                success: false,
+                message: "Resturants Not Found"
+            })
+        }
+        res.status(200).send({
+            success: true,
+            totalCount: resturants.length,
+            message: "Resturants Found Successfully",
+            resturants
+        })
+    } catch (error) {
+        res.status(500).send({
+            success: false,
+            message: "Error in Resturant API",
+            error
+        })
+    }
+}
+
+// GET RESTURANT BY ID
+
+const getResturantByIdController = async (req, res) => {
+    try {
+        const resturantId = req.params.id
+        // validation of resturant Id
+        if(!resturantId){
+            return res.status(404).send({
+                success:false,
+                message:"Please Provide Resturant Id"
+            })
+        }
+        // find resturant Id
+        const resturant = await restaurantModel.findById(resturantId)
+        // validation
+        if(!resturant){
+            return res.status(404).send({
+                success: false,
+                message: "Resturant Not Found By Id"
+            })
+        }
+        res.status(202).send({
+            success: true,
+            message: "Resturant Found Successfully By Id",
+            resturant
+        })
+    } catch (error) {
+        res.status(500).send({
+            success:false,
+            message:"Error in Get Resturant API By ID",
+            error
+        })
+    }
+}
+
+module.exports = { 
+    createResturantController,
+    getAllResturantController,
+    getResturantByIdController
+ }
