@@ -2,6 +2,7 @@
 
 const userModel = require("../models/userModel")
 const bcrypt = require('bcryptjs');
+const multer = require('multer');
 
 const getUserController = async (req,res) => {
     try {
@@ -177,7 +178,58 @@ const deleteUserController = async (req,res) => {
             message:"Error in Deleting Api",
         })
     }
-}
+};
+
+ // profile upload route
+ const upload = multer({
+    storage:multer.diskStorage({
+        destination:function(req,file,cb){                       
+            cb(null,'uploads') 
+        },
+        filename:function(req,file,cb){
+             cb(null,file.fieldname + "-" + Date.now() + ".jpg");
+        }
+    })
+}).single("image");
+
+// Upload Profile Image
+const profileImageController = async (req, res) => {
+    jwt.verify(req.token, secretkey, async (err, authData) => {
+        if (err) {
+            res.status(401).send({ result: 'Invalid Token' });
+        }
+        
+        try {
+            // Get the file path
+            const fieldname = req.file.fieldname;
+            const filePath = req.file.path;
+
+            // Update the user's profile with the file path
+            const updatedUser = await userSchema.findOneAndUpdate(
+                { _id: authData.user._id },
+                { 'profile.path': filePath, 'profile.fieldname': fieldname },
+                { new: true }
+            );
+
+            if (!updatedUser) {
+                return res.status(404).send('User not found');
+            }
+
+            // Access the username from the updatedUser object
+            const username = updatedUser.username;
+
+            res.status(200).send({ 
+                message: 'File uploaded successfully', 
+                user: updatedUser, 
+            });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Server error');
+        }
+    });
+};
+       
+
 
 module.exports = { 
     getUserController, 

@@ -3,8 +3,7 @@ const userModel = require("../models/userModel");
 const { route } = require("../routes/testRoutes");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
-
+const multer = require('multer');
 
 // Register route
 const registerController = async (req, res) => {
@@ -31,6 +30,8 @@ const registerController = async (req, res) => {
       // Hash password
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(password, salt);
+
+    
   
       // Create new user
       const user = await userModel.create({
@@ -39,8 +40,8 @@ const registerController = async (req, res) => {
         password: hashedPassword,
         address,
         phone,
-        answer,
-      });
+        answer
+  });
   
       return res.status(201).send({
         success: true,
