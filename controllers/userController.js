@@ -2,7 +2,6 @@
 
 const userModel = require("../models/userModel")
 const bcrypt = require('bcryptjs');
-const { decode } = require("jsonwebtoken");
 const multer = require('multer');
 
 const getUserController = async (req,res) => {
@@ -237,7 +236,5 @@ module.exports = {
     updateUserController,
     updatePasswordController,
     resetPasswordController,
-    deleteUserController,
-    profileImageController,
-    upload
+    deleteUserController
 }
