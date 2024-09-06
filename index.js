@@ -5,6 +5,11 @@ const morgan = require('morgan'); // http request logger
 const dotenv = require('dotenv'); // env file
 const connectDB = require('./config/db');
 
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('./docs/user.yaml'); // load the YAML file
+
+
 // rest object
 const app = express()
 
@@ -19,6 +24,10 @@ connectDB();
 app.use(express.json()); // to accept json data 
 app.use(cors()); // cross origin resource sharing
 app.use(morgan("dev")); // http request logger
+
+
+// Swagger route
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // routes imports
 app.use('/api/v1/test',require('./routes/testRoutes')); // test route
