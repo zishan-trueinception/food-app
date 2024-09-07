@@ -31,7 +31,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // routes imports
 app.use('/api/v1/test',require('./routes/testRoutes')); // test route
-app.use('/api/v1/auth',require('./routes/adminRoutes')); // admin route
+app.use('/api/v1/admin',require('./routes/adminRoutes')); // admin route
 app.use('/api/v1/auth',require('./routes/authRoutes')); // authentication route
 app.use('/api/v1/category',require('./routes/categoryRoute')); // category route
 app.use('/api/v1/user',require('./routes/userRoute')); // user route

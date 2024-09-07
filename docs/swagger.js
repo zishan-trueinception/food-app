@@ -19,6 +19,12 @@ openapi: '3.0.0',
     description: 'This API provides endpoints for authentication, user management, and more.',
     version: '1.0.0',
   },
+  servers: [
+    {
+      url: 'http://localhost:8080',
+      description: 'Development server'
+    },
+  ],
   paths: {
     ...authSwaggerDocument.paths,
     ...userSwaggerDocument.paths,
