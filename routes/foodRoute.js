@@ -7,8 +7,10 @@ const {
     getSingleFoodController, 
     getFoodbyRestaurantController, 
     updateFoodController,
-    deletefoodController} = require("../controllers/foodController");
+    deletefoodController,
+    placeOrderController} = require("../controllers/foodController");
 const  {authMiddleware} = require("../middlewares/authMiddleware");
+const adminMiddlewere = require("../middlewares/adminMiddlewere");
 
 
 // Food Create Route !! Post
@@ -32,11 +34,12 @@ router.put("/update/:id",authMiddleware,updateFoodController);
 router.delete("/delete/:id",authMiddleware,deletefoodController);
 
 
-
+// Placed Order route
+router.post("/placeorder",authMiddleware,placeOrderController);
 
 // ORDER STATUS
 
-router.post("/order-status",authMiddleware,orderStatusController);
+router.post("/status/:id",authMiddleware,orderStatusController);
 
 
 

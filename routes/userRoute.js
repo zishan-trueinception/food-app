@@ -3,7 +3,6 @@ const {
     getUserController, 
     updateUserController, 
     updatePasswordController, 
-    resetUserPasswordController, 
     resetPasswordController,
     deleteUserController
  } = require('../controllers/userController');
@@ -25,5 +24,7 @@ router.post('/resetPassword',authMiddleware,resetPasswordController)
 
 // delete user 
 router.delete('/deleteUser',authMiddleware,deleteUserController)
+
+
 
 module.exports = router
