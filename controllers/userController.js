@@ -9,7 +9,7 @@ const getUserController = async (req,res) => {
         // find user
         const user = await userModel.findById(req.body.id);
         if(!user){
-            return res.status(500).send({
+            return res.status(404).send({
                 success:false,
                 message:"User not found"
             })
@@ -26,7 +26,7 @@ const getUserController = async (req,res) => {
     } catch (error) {
         res.status(500).send({
             success:false,
-            message:"Error in Getiing User",
+            message:"Error in Fetching User",
             error
         })
         
@@ -92,7 +92,7 @@ const updatePasswordController = async (req, res) => {
         // compare old password
         const match = await bcrypt.compare(oldPassword, user.password);
         if (!match) {
-            return res.status(400).send({
+            return res.status(402).send({
                 success: false,
                 message: "Incorrect old password"
             });
@@ -108,7 +108,7 @@ const updatePasswordController = async (req, res) => {
             message: "Password updated successfully"
         })
     } catch (error) {
-        return res.status(400).send({
+        return res.status(500).send({
             success: false,
             message: "Error in password update",
             error
