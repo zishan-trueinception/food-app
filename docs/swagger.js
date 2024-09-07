@@ -13,7 +13,7 @@ const restaurantSwaggerDocument = YAML.load(path.join(__dirname, './restaurant.y
 
 // Combine multiple Swagger YAML files
 const swaggerDocument = {
-openapi: '4.0',
+openapi: '3.0.0',
   info: {
     title: 'Food API with JWT Authentication',
     description: 'This API provides endpoints for authentication, user management, and more.',
