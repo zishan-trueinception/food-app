@@ -1,9 +1,8 @@
 paths:
-# get user
   /api/v1/user/getUser:
     get:
-      summary: Get user Details
-      description: Fetches user Details by user ID and JWT
+      summary: Get User Details
+      description: Fetches user details by user ID and JWT
       tags:
         - Users
       parameters:
@@ -11,7 +10,7 @@ paths:
           name: userID
           required: true
           schema: 
-            type: String
+            type: string
             example: "609dcd72699a1f02b8c9f0d7"
       responses:
         '200':
@@ -21,72 +20,37 @@ paths:
               schema:
                 type: object
                 properties:
-                  message:
+                  success:
                     type: boolean
                     example: true
                   message:
-                    type: String
-                    example: User Found Successfully
+                    type: string
+                    example: User found successfully
                   user:
                     type: object
                     properties:
                       username:
-                        type: String
+                        type: string
                         example: JohnDoe
                       email:
-                        type: String
-                        formatL: email
+                        type: string
+                        format: email
                         example: johndoe@example.com
                       address:
-                        type: String
+                        type: string
                         example: 123 Main St
                       phone:
-                        type: String
-                        example: "123-456-78990"
-                '404':
-                  description: User not found
-                '500':
-                  description: Error in Fetching User
+                        type: string
+                        example: "123-456-7890"
+        '404':
+          description: User not found
+        '500':
+          description: Error in fetching user
 
-# update user 
   /api/v1/user/updateUser:
     put:
-      summary: Update user Details
-      description: Updates user Details like username, address and phone
-      tags:
-        -Users
-      requestbody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                id:
-                  type: String
-                  example: "609dcd72699a1f02b8c9f0d7"
-                username:
-                  type: String
-                  example: JohnDoe
-                address:
-                  type: String
-                  example: 123 Main St
-                phone:
-                  type: String
-                  example: "123-456-78990"
-        responses:
-          '200':
-            description: User updated successfully
-          '404':
-            description: User not found
-          '500':
-            description: Error in Updating User
-
-# Update User Password
-  /api/v1/user/updatePassword:
-    put:
-      summary: Update User Password
-      description: Update user's password by validating the old password and setting a new password
+      summary: Update User Details
+      description: Updates user details such as username, address, and phone
       tags:
         - Users
       requestBody:
@@ -97,22 +61,77 @@ paths:
               type: object
               properties:
                 id:
-                  type: String
+                  type: string
+                  example: "609dcd72699a1f02b8c9f0d7"
+                username:
+                  type: string
+                  example: JohnDoe
+                address:
+                  type: string
+                  example: 123 Main St
+                phone:
+                  type: string
+                  example: "123-456-7890"
+      responses:
+        '200':
+          description: User updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: User updated successfully
+        '404':
+          description: User not found
+        '500':
+          description: Error in updating user
+
+  /api/v1/user/updatePassword:
+    put:
+      summary: Update User Password
+      description: Updates user's password by validating the old password and setting a new password
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
                   example: "609dcd72699a1f02b8c9f0d7"
                 oldPassword:
-                  type: String
+                  type: string
                   example: "password"
                 newPassword:
-                  type: String
+                  type: string
                   example: "newpassword"
-          responses:
-            '200': 
-              description: Password Update Successfully
-            '404':
-              description: User not found
-            '400':
-              description: Please provide both old and new passwords
-            '500':
-              description: Error in Updating Password
-            '402':
-              descroption: Incorrect old password
+      responses:
+        '200': 
+          description: Password updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Password updated successfully
+        '404':
+          description: User not found
+        '400':
+          description: Please provide both old and new passwords
+        '500':
+          description: Error in updating password
+        '402':
+          description: Incorrect old password
