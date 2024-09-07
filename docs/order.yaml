@@ -1,19 +1,59 @@
 paths:
-  /api/v1/user/getUser:
-    get:
-      summary: Get user information
-      description: Fetches user details by user ID.
-      title: users
+  /api/v1/food/update/{id}:
+    put:
+      summary: Update food
+      description: Updates an existing food item by its ID.
+      tags: 
+        -  orders
       parameters:
-        - in: query
-          name: userId
+        - in: path
+          name: id
           required: true
           schema:
             type: string
-            example: "609dcd72699a1f02b8c9f0d7"
+            description: The ID of the food to update.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: "Updated Pizza"
+                description:
+                  type: string
+                  example: "Updated description"
+                price:
+                  type: number
+                  example: 12.99
+                imageUrl:
+                  type: string
+                  example: "https://example.com/updated_pizza.jpg"
+                foodTags:
+                  type: array
+                  items:
+                    type: string
+                  example: ["vegan", "cheesy"]
+                category:
+                  type: string
+                  example: "Fast Food"
+                code:
+                  type: string
+                  example: "PIZ456"
+                isAvailable:
+                  type: boolean
+                  example: false
+                restaurant:
+                  type: string
+                  example: "609dcd72699a1f02b8c9f0d7"
+                rating:
+                  type: number
+                  example: 4.8
       responses:
         '200':
-          description: User found successfully
+          description: Food updated successfully
           content:
             application/json:
               schema:
@@ -24,86 +64,136 @@ paths:
                     example: true
                   message:
                     type: string
-                    example: User found successfully
-                  user:
+                    example: "Food updated successfully"
+        '404':
+          description: No food found with this ID
+        '500':
+          description: Error in updating food
+
+  /api/v1/food/delete/{id}:
+    delete:
+      summary: Delete food
+      description: Deletes a food item by its ID.
+      tags:
+        -  orders
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            description: The ID of the food to delete.
+      responses:
+        '200':
+          description: Food deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Food deleted successfully"
+        '404':
+          description: No food found with this ID
+        '500':
+          description: Error in deleting food
+
+  /api/v1/order/status/{id}:
+    put:
+      summary: Update order status
+      description: Updates the status of an order by its ID.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            description: The ID of the order to update.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: "delivered"
+      responses:
+        '200':
+          description: Order status updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Order Status Updated"
+        '404':
+          description: No order found with this ID
+        '500':
+          description: Error in updating order status
+
+  /api/v1/order/place:
+    post:
+      summary: Place order
+      description: Places a new order with the provided cart and payment details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cart:
+                  type: array
+                  items:
                     type: object
                     properties:
-                      username:
+                      foodId:
                         type: string
-                        example: johndoe
-                      email:
-                        type: string
-                        example: johndoe@example.com
-                      address:
-                        type: string
-                        example: "123 Main St"
-                      phone:
-                        type: string
-                        example: "123-456-7890"
-        '404':
-          description: User not found
-        '500':
-          description: Error occurred
-
-  /api/v1/user/updateUser:
-    put:
-      summary: Update user details
-      description: Updates user information like username, address, and phone.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
+                        example: "609dcd72699a1f02b8c9f0d7"
+                      price:
+                        type: number
+                        example: 10.99
                 id:
                   type: string
-                  example: "609dcd72699a1f02b8c9f0d7"
-                username:
-                  type: string
-                  example: johndoe_updated
-                address:
-                  type: string
-                  example: "456 Elm St"
-                phone:
-                  type: string
-                  example: "987-654-3210"
+                  example: "buyerId"
       responses:
         '200':
-          description: User updated successfully
+          description: Order placed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Order placed successfully"
+                  newOrder:
+                    type: object
+                    properties:
+                      foods:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            foodId:
+                              type: string
+                            price:
+                              type: number
         '404':
-          description: User not found
+          description: Validation error, missing cart or payment details
         '500':
-          description: Error in updating user
-
-  /api/v1/user/update-password:
-    put:
-      summary: Update user password
-      description: Updates the user's password by validating the old password and setting a new password.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                id:
-                  type: string
-                  example: "609dcd72699a1f02b8c9f0d7"
-                oldPassword:
-                  type: string
-                  format: password
-                  example: "OldPassword123"
-                newPassword:
-                  type: string
-                  format: password
-                  example: "NewPassword123"
-      responses:
-        '200':
-          description: Password updated successfully
-        '400':
-          description: Validation error or incorrect old password
-        '404':
-          description: User not found
-        '500':
-          description: Error in password update
+          description: Error in placing order
