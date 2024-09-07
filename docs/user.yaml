@@ -1,8 +1,8 @@
 paths:
   /api/v1/user/getUser:
     get:
-      summary: Get User Details
-      description: Fetches user details by user ID and JWT
+      summary: Get User Information
+      description: Fetches user Information by user ID and JWT
       tags:
         - Users
       parameters:
