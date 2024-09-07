@@ -9,11 +9,11 @@ paths:
         - in: query
           name: userID
           required: true
-          schema: 
+          schema:
             type: string
             example: "609dcd72699a1f02b8c9f0d7"
       responses:
-        '200':
+        "200":
           description: User found successfully
           content:
             application/json:
@@ -42,9 +42,9 @@ paths:
                       phone:
                         type: string
                         example: "123-456-7890"
-        '404':
+        "404":
           description: User not found
-        '500':
+        "500":
           description: Error in fetching user
 
   /api/v1/user/updateUser:
@@ -73,7 +73,7 @@ paths:
                   type: string
                   example: "123-456-7890"
       responses:
-        '200':
+        "200":
           description: User updated successfully
           content:
             application/json:
@@ -86,9 +86,9 @@ paths:
                   message:
                     type: string
                     example: User updated successfully
-        '404':
+        "404":
           description: User not found
-        '500':
+        "500":
           description: Error in updating user
 
   /api/v1/user/updatePassword:
@@ -114,7 +114,7 @@ paths:
                   type: string
                   example: "newpassword"
       responses:
-        '200': 
+        "200":
           description: Password updated successfully
           content:
             application/json:
@@ -127,11 +127,11 @@ paths:
                   message:
                     type: string
                     example: Password updated successfully
-        '404':
+        "404":
           description: User not found
-        '400':
+        "400":
           description: Please provide both old and new passwords
-        '500':
+        "500":
           description: Error in updating password
-        '402':
+        "402":
           description: Incorrect old password
