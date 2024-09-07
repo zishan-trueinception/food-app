@@ -1,15 +1,17 @@
 paths:
+# get user
   /api/v1/user/getUser:
     get:
-      summary: Get user information
-      description: Fetches user details by user ID.
-      title: users
+      summary: Get user Details
+      description: Fetches user Details by user ID and JWT
+      tags:
+        - Users
       parameters:
         - in: query
-          name: userId
+          name: userID
           required: true
-          schema:
-            type: string
+          schema: 
+            type: String
             example: "609dcd72699a1f02b8c9f0d7"
       responses:
         '200':
@@ -19,37 +21,41 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
+                  message:
                     type: boolean
                     example: true
                   message:
-                    type: string
-                    example: User found successfully
+                    type: String
+                    example: User Found Successfully
                   user:
                     type: object
                     properties:
                       username:
-                        type: string
-                        example: johndoe
+                        type: String
+                        example: JohnDoe
                       email:
-                        type: string
+                        type: String
+                        formatL: email
                         example: johndoe@example.com
                       address:
-                        type: string
-                        example: "123 Main St"
+                        type: String
+                        example: 123 Main St
                       phone:
-                        type: string
-                        example: "123-456-7890"
-        '404':
-          description: User not found
-        '500':
-          description: Error occurred
+                        type: String
+                        example: "123-456-78990"
+                '404':
+                  description: User not found
+                '500':
+                  description: Error in Fetching User
 
+# update user 
   /api/v1/user/updateUser:
     put:
-      summary: Update user details
-      description: Updates user information like username, address, and phone.
-      requestBody:
+      summary: Update user Details
+      description: Updates user Details like username, address and phone
+      tags:
+        -Users
+      requestbody:
         required: true
         content:
           application/json:
@@ -57,29 +63,32 @@ paths:
               type: object
               properties:
                 id:
-                  type: string
+                  type: String
                   example: "609dcd72699a1f02b8c9f0d7"
                 username:
-                  type: string
-                  example: johndoe_updated
+                  type: String
+                  example: JohnDoe
                 address:
-                  type: string
-                  example: "456 Elm St"
+                  type: String
+                  example: 123 Main St
                 phone:
-                  type: string
-                  example: "987-654-3210"
-      responses:
-        '200':
-          description: User updated successfully
-        '404':
-          description: User not found
-        '500':
-          description: Error in updating user
+                  type: String
+                  example: "123-456-78990"
+        responses:
+          '200':
+            description: User updated successfully
+          '404':
+            description: User not found
+          '500':
+            description: Error in Updating User
 
-  /api/v1/user/update-password:
+# Update User Password
+  /api/v1/user/updatePassword:
     put:
-      summary: Update user password
-      description: Updates the user's password by validating the old password and setting a new password.
+      summary: Update User Password
+      description: Update user's password by validating the old password and setting a new password
+      tags:
+        - Users
       requestBody:
         required: true
         content:
@@ -88,22 +97,22 @@ paths:
               type: object
               properties:
                 id:
-                  type: string
+                  type: String
                   example: "609dcd72699a1f02b8c9f0d7"
                 oldPassword:
-                  type: string
-                  format: password
-                  example: "OldPassword123"
+                  type: String
+                  example: "password"
                 newPassword:
-                  type: string
-                  format: password
-                  example: "NewPassword123"
-      responses:
-        '200':
-          description: Password updated successfully
-        '400':
-          description: Validation error or incorrect old password
-        '404':
-          description: User not found
-        '500':
-          description: Error in password update
+                  type: String
+                  example: "newpassword"
+          responses:
+            '200': 
+              description: Password Update Successfully
+            '404':
+              description: User not found
+            '400':
+              description: Please provide both old and new passwords
+            '500':
+              description: Error in Updating Password
+            '402':
+              descroption: Incorrect old password
