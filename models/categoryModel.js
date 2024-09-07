@@ -9,7 +9,7 @@ const categorySchema = new mongoose.Schema({
     },
     imgUrl:{
         type: String,
-        default: "https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_640.png"
+        default: "https://res.cloudinary.com/rainforest-cruises/images/c_fill,g_auto/f_auto,q_auto/w_1120,h_732,c_fill,g_auto/v1661887113/indian-food/indian-food-1120x732.jpg"
     },
 },
 {timestamps: true}
