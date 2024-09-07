@@ -1,0 +1,132 @@
+paths:
+  /api/v1/auth/register:
+    post:
+      summary: Register a new user
+      description: Allows users to register by providing required information.
+      requestBody:
+        description: User registration details
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: johndoe
+                email:
+                  type: string
+                  format: email
+                  example: johndoe@example.com
+                password:
+                  type: string
+                  format: password
+                  example: Pass@123
+                address:
+                  type: string
+                  example: "123 Main St"
+                phone:
+                  type: string
+                  example: "123-456-7890"
+                answer:
+                  type: string
+                  description: Security answer for account recovery
+                  example: "My first pet's name"
+      responses:
+        '201':
+          description: User successfully registered
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Successfully Registered
+                  user:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        example: "609dcd72699a1f02b8c9f0d7"
+                      username:
+                        type: string
+                        example: johndoe
+                      email:
+                        type: string
+                        example: johndoe@example.com
+                      address:
+                        type: string
+                        example: "123 Main St"
+                      phone:
+                        type: string
+                        example: "123-456-7890"
+        '400':
+          description: Bad request - missing or invalid input
+        '500':
+          description: Internal server error
+
+  /api/v1/auth/login:
+    post:
+      summary: Login a user
+      description: Allows users to log in by providing email and password.
+      requestBody:
+        description: User login credentials
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: johndoe@example.com
+                password:
+                  type: string
+                  format: password
+                  example: Pass@123
+      responses:
+        '200':
+          description: User successfully logged in
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Login successfully
+                  token:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  user:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        example: "609dcd72699a1f02b8c9f0d7"
+                      username:
+                        type: string
+                        example: johndoe
+                      email:
+                        type: string
+                        example: johndoe@example.com
+                      address:
+                        type: string
+                        example: "123 Main St"
+                      phone:
+                        type: string
+                        example: "123-456-7890"
+        '400':
+          description: Bad request - missing email or password
+        '500':
+          description: Internal server error or incorrect credentials
+
+  

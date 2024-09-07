@@ -6,8 +6,8 @@ const dotenv = require('dotenv'); // env file
 const connectDB = require('./config/db');
 
 const swaggerUi = require('swagger-ui-express');
-const YAML = require('yamljs');
-const swaggerDocument = YAML.load('./docs/user.yaml'); // load the YAML file
+const swaggerDocument = require('./docs/swagger'); // load the YAML file
+
 
 
 // rest object
