@@ -5,6 +5,8 @@ paths:
       description: Fetches user details by user ID and JWT
       tags:
         - Users
+      security:
+        - BearerAuth: []  # This enforces JWT authentication
       parameters:
         - in: query
           name: userID
@@ -53,6 +55,8 @@ paths:
       description: Updates user details such as username, address, and phone
       tags:
         - Users
+      security:
+        - BearerAuth: []  # This enforces JWT authentication
       requestBody:
         required: true
         content:
@@ -97,6 +101,8 @@ paths:
       description: Updates user's password by validating the old password and setting a new password
       tags:
         - Users
+      security:
+        - BearerAuth: []  # This enforces JWT authentication
       requestBody:
         required: true
         content:
@@ -142,6 +148,8 @@ paths:
       description: Resets the user's password by verifying the email and security answer.
       tags:
         - Users
+      security:
+        - BearerAuth: []  # This enforces JWT authentication
       requestBody:
         required: true
         content:
@@ -185,6 +193,8 @@ paths:
       description: Deletes a user's account based on the provided user ID.
       tags:
         - Users
+      security:
+        - BearerAuth: []  # This enforces JWT authentication
       requestBody:
         required: true
         content:
@@ -220,6 +230,8 @@ paths:
       description: Uploads a profile image for the authenticated user.
       tags:
         - Users
+      security:
+        - BearerAuth: []  # This enforces JWT authentication
       requestBody:
         required: true
         content:

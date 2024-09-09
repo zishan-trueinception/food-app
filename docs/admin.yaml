@@ -1,50 +1,130 @@
 paths:
-  /api/v1/admin/admin:
+  /api/v1/auth/admin/register:
     post:
+      summary: Admin Registration
+      description: Registers a new admin by providing email and password.
       tags:
-        - Admin
-      summary: Register Admin
-      description: Register a new admin user.
+        - Admin Authentication
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AdminRegister'
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: admin@example.com
+                password:
+                  type: string
+                  example: "password123"
       responses:
-        201:
-          description: Successfully registered
+        '201':
+          description: Admin successfully registered
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AdminResponse'
-        400:
-          description: Bad Request (Validation Error)
-        500:
-          description: Internal Server Error
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Successfully Registered
+                  user:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        example: "60df73f6c582cc1d2caba98a"
+                      email:
+                        type: string
+                        example: admin@example.com
+        '400':
+          description: Validation error (missing fields)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Please provide all fields
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Error in Registration API
 
-  /api/v1/admin/adminlogin:
+  /api/v1/auth/admin/login:
     post:
-      tags:
-        - Admin
       summary: Admin Login
-      description: Admin user login.
+      description: Allows an admin to log in by providing email and password.
+      tags:
+        - Admin Authentication
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AdminLogin'
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: admin@example.com
+                password:
+                  type: string
+                  example: "password123"
       responses:
-        200:
-          description: Login successful
+        '200':
+          description: Admin successfully logged in
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/LoginResponse'
-        400:
-          description: Bad Request (Validation Error)
-        500:
-          description: Internal Server Error
-      security:
-        - BearerAuth: []
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Login successfully
+                  token:
+                    type: string
+                    example: "jwt-token"
+                  user:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        example: "60df73f6c582cc1d2caba98a"
+                      email:
+                        type: string
+                        example: admin@example.com
+        '500':
+          description: Validation error or incorrect credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Incorrect password or User not found
