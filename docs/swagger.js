@@ -25,14 +25,6 @@ openapi: '3.0.0',
       description: 'Development server'
     },
   ],
-  paths: {
-    ...authSwaggerDocument.paths,
-    ...userSwaggerDocument.paths,
-    ...adminSwaggerDocument.paths,
-    ...foodSwaggerDocument.paths,
-    ...orderSwaggerDocument.paths,
-    ...restaurantSwaggerDocument.paths,
-  },
   components: {
     securitySchemes: {
       BearerAuth: {
@@ -42,6 +34,15 @@ openapi: '3.0.0',
       },
     },
   },
+  paths: {
+    ...authSwaggerDocument.paths,
+    ...userSwaggerDocument.paths,
+    ...adminSwaggerDocument.paths,
+    ...foodSwaggerDocument.paths,
+    ...orderSwaggerDocument.paths,
+    ...restaurantSwaggerDocument.paths,
+  },
+  
 };
 
 module.exports = swaggerDocument;

@@ -2,9 +2,153 @@ paths:
   /api/v1/auth/register:
     post:
       summary: Register a new user
-      description: Register a new user
-      tags: 
+      description: Register a new user by providing username, email, password, address, phone, and security answer.
+      tags:
         - Auth
-      requestBody: user registeration details
-      responses: 
-  
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: JohnDoe
+                email:
+                  type: string
+                  format: email
+                  example: johndoe@example.com
+                password:
+                  type: string
+                  example: "password123"
+                address:
+                  type: string
+                  example: "123 Main St"
+                phone:
+                  type: string
+                  example: "123-456-7890"
+                answer:
+                  type: string
+                  example: "My favorite color is blue"
+      responses:
+        '201':
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Successfully Registered
+                  user:
+                    type: object
+                    properties:
+                      username:
+                        type: string
+                        example: JohnDoe
+                      email:
+                        type: string
+                        example: johndoe@example.com
+                      address:
+                        type: string
+                        example: "123 Main St"
+                      phone:
+                        type: string
+                        example: "123-456-7890"
+        '400':
+          description: Validation error or user already exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Please provide all fields / User already exists
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Error in Registration API
+
+  /api/v1/auth/login:
+    post:
+      summary: User login
+      description: Log in a user by providing their email and password. Returns a JWT token upon successful authentication.
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: johndoe@example.com
+                password:
+                  type: string
+                  example: "password123"
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Login successfully
+                  token:
+                    type: string
+                    example: "JWT Token Here"
+                  user:
+                    type: object
+                    properties:
+                      username:
+                        type: string
+                        example: JohnDoe
+                      email:
+                        type: string
+                        example: johndoe@example.com
+                      address:
+                        type: string
+                        example: "123 Main St"
+                      phone:
+                        type: string
+                        example: "123-456-7890"
+        '500':
+          description: Server error or incorrect login credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Incorrect password / User not found / Error in Login API
