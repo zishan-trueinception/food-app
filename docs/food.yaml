@@ -14,6 +14,9 @@ paths:
             schema:
               type: object
               properties:
+                _id:
+                  type: string
+                  example: "admin _id: 609dcd72699a1f02b8c9f0d7"
                 title:
                   type: string
                   example: "Pizza"
@@ -30,13 +33,13 @@ paths:
                   type: array
                   items:
                     type: string
-                  example: ["vegan", "spicy"]
+                  example: "vegan"
                 category:
                   type: string
                   example: "Fast Food"
                 code:
                   type: string
-                  example: "PIZ123"
+                  example: 123
                 isAvailable:
                   type: boolean
                   example: true
@@ -67,7 +70,7 @@ paths:
         '404':
           description: Please Provide all Fields
 
-  /api/v1/food/all:
+  /api/v1/food/getall:
     get:
       summary: Get all foods
       description: Fetches all available food items.

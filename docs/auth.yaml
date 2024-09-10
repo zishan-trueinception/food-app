@@ -4,7 +4,7 @@ paths:
       summary: Register a new user
       description: Register a new user by providing username, email, password, address, phone, and security answer.
       tags:
-        - Auth
+        - Authentication
       requestBody:
         required: true
         content:
@@ -92,7 +92,7 @@ paths:
       summary: User login
       description: Log in a user by providing their email and password. Returns a JWT token upon successful authentication.
       tags:
-        - Auth
+        - Authentication
       requestBody:
         required: true
         content:
