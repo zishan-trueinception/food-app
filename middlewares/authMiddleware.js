@@ -17,7 +17,7 @@ const authMiddleware = async (req, res, next) => {
     } catch (error) {
         res.status(500).send({
             success: false,
-            message: "Error in auth API",
+            message: "Error in Authentication Server",
         })
     }
 }

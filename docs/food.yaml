@@ -5,6 +5,8 @@ paths:
       description: Creates a new food item.
       tags:
         - Food
+      security:
+        - BearerAuth: [] # This enforces JWT authentication
       requestBody:
         required: true
         content:
@@ -62,6 +64,8 @@ paths:
                     type: object
         '500':
           description: Error in creating food
+        '404':
+          description: Please Provide all Fields
 
   /api/v1/food/all:
     get:

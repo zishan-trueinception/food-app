@@ -14,7 +14,7 @@ const adminMiddlewere = require("../middlewares/adminMiddlewere");
 
 
 // Food Create Route !! Post
-router.post("/create",authMiddleware,createfoodController);
+router.post("/create",adminMiddlewere,createfoodController);
 
 // Food Get Route !! Get
 router.get("/getall",getAllfoodController);
@@ -27,19 +27,18 @@ router.get("/get/:id",getSingleFoodController);
 router.get("/getbyrestaurant/:id",getFoodbyRestaurantController);
 
 // update food
-router.put("/update/:id",authMiddleware,updateFoodController);
+router.put("/update/:id",adminMiddlewere,updateFoodController);
 
 
 // Delete food Item
-router.delete("/delete/:id",authMiddleware,deletefoodController);
+router.delete("/delete/:id",adminMiddlewere,deletefoodController);
 
 
 // Placed Order route
 router.post("/placeorder",authMiddleware,placeOrderController);
 
 // ORDER STATUS
-
-router.post("/status/:id",authMiddleware,orderStatusController);
+router.post("/status/:id",adminMiddlewere,orderStatusController);
 
 
 

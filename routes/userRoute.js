@@ -5,7 +5,8 @@ const {
     updatePasswordController, 
     resetPasswordController,
     deleteUserController,
-    profileImageController
+    profileImageController,
+    upload
  } = require('../controllers/userController');
 const { authMiddleware } = require('../middlewares/authMiddleware');
 const router = expres.Router();
@@ -27,7 +28,7 @@ router.post('/resetPassword',authMiddleware,resetPasswordController)
 router.delete('/deleteUser',authMiddleware,deleteUserController)
 
 // UPDATE PROFILE IMAGE | POST 
-router.put('/profileImage',profileImageController)
+router.put('/profileImage',upload,authMiddleware,profileImageController)
 
 
 
