@@ -7,10 +7,10 @@ const router = expres.Router();
 //routes
 
 // ADMIN ROUTE | POST
-router.post("/admin",adminController)
+router.post("/register",adminController)
 
 // ADMIN LOGIN ROUTE | GET
-router.get("/adminlogin",adminMiddlewere,adminloginController)
+router.post("/login",adminMiddlewere,adminloginController)
 
 
 module.exports = router

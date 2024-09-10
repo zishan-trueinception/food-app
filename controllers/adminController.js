@@ -58,15 +58,15 @@ const adminloginController = async (req,res)=>{
        });
    };
    //check if user exists
-   const user = await adminModel.findOne({email});
-   if(!user){
+   const admin = await adminModel.findOne({email});
+   if(!admin){
        return res.status(500).send({
            success:false,
-           message:"User not found"
+           message:"admin not found"
        });
    };
    // compare password | check user password
-   const match = await bcrypt.compare(password,user.password);
+   const match = await bcrypt.compare(password,admin.password);
    if(!match){
        return res.status(500).send({
            success:false,
@@ -74,16 +74,16 @@ const adminloginController = async (req,res)=>{
        });
    }
    // token 
-   const token = jwt.sign({id:user._id},process.env.JWT_SECRET,{expiresIn:"7d"});
+   const token = jwt.sign({id:admin._id},process.env.JWT_SECRET,{expiresIn:"7d"});
 
 
    // password hide | send response
-   user.password = undefined;
+   admin.password = undefined;
    res.status(200).send({
        success:true,
        message:"Login successfully",
        token,
-       user
+       admin
    });
  
 
@@ -94,6 +94,7 @@ const adminloginController = async (req,res)=>{
        message:"Error in Registration API"
    });
 }}
+
 
 
 
