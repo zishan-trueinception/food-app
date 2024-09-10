@@ -236,5 +236,6 @@ module.exports = {
     updateUserController,
     updatePasswordController,
     resetPasswordController,
-    deleteUserController
+    deleteUserController,
+    profileImageController
 }
