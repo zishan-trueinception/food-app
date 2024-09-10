@@ -1,8 +1,7 @@
 paths:
-  /api/v1/auth/admin/register:
+  /api/v1/admin/register:
     post:
-      summary: Admin Registration
-      description: Registers a new admin by providing email and password.
+      summary: Register an admin
       tags:
         - Admin Authentication
       requestBody:
@@ -14,11 +13,15 @@ paths:
               properties:
                 email:
                   type: string
-                  format: email
                   example: admin@example.com
+                  description: Email address of the admin.
                 password:
                   type: string
-                  example: "password123"
+                  example: "securePassword123"
+                  description: Password for the admin account.
+              required:
+                - email
+                - password
       responses:
         '201':
           description: Admin successfully registered
@@ -32,18 +35,18 @@ paths:
                     example: true
                   message:
                     type: string
-                    example: Successfully Registered
+                    example: "Successfully Registered"
                   user:
                     type: object
                     properties:
-                      _id:
-                        type: string
-                        example: "60df73f6c582cc1d2caba98a"
                       email:
                         type: string
                         example: admin@example.com
+                      _id:
+                        type: string
+                        example: "609b5c9fe8a7d812dc1e24a1"
         '400':
-          description: Validation error (missing fields)
+          description: Bad request, missing fields or validation error
           content:
             application/json:
               schema:
@@ -54,7 +57,7 @@ paths:
                     example: false
                   message:
                     type: string
-                    example: Please provide all fields
+                    example: "Please provide all fields"
         '500':
           description: Internal server error
           content:
@@ -67,12 +70,11 @@ paths:
                     example: false
                   message:
                     type: string
-                    example: Error in Registration API
+                    example: "Error in Registration API"
 
-  /api/v1/auth/admin/login:
+  /api/v1/admin/login:
     post:
-      summary: Admin Login
-      description: Allows an admin to log in by providing email and password.
+      summary: Login an admin
       tags:
         - Admin Authentication
       requestBody:
@@ -84,14 +86,18 @@ paths:
               properties:
                 email:
                   type: string
-                  format: email
                   example: admin@example.com
+                  description: Admin email for login
                 password:
                   type: string
-                  example: "password123"
+                  example: "securePassword123"
+                  description: Admin password for login
+              required:
+                - email
+                - password
       responses:
         '200':
-          description: Admin successfully logged in
+          description: Admin logged in successfully
           content:
             application/json:
               schema:
@@ -102,21 +108,21 @@ paths:
                     example: true
                   message:
                     type: string
-                    example: Login successfully
+                    example: "Login successfully"
                   token:
                     type: string
-                    example: "jwt-token"
-                  user:
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  admin:
                     type: object
                     properties:
-                      _id:
-                        type: string
-                        example: "60df73f6c582cc1d2caba98a"
                       email:
                         type: string
                         example: admin@example.com
-        '500':
-          description: Validation error or incorrect credentials
+                      _id:
+                        type: string
+                        example: "609b5c9fe8a7d812dc1e24a1"
+        '400':
+          description: Bad request, missing fields or validation error
           content:
             application/json:
               schema:
@@ -127,4 +133,17 @@ paths:
                     example: false
                   message:
                     type: string
-                    example: Incorrect password or User not found
+                    example: "Please provide email and password"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Error in Login API"

@@ -7,6 +7,7 @@ const { url } = require('inspector');
 const authSwaggerDocument = YAML.load(path.join(__dirname, './auth.yaml'));
 const userSwaggerDocument = YAML.load(path.join(__dirname, './user.yaml'));
 const adminSwaggerDocument = YAML.load(path.join(__dirname, './admin.yaml'));
+const categorySwaggerDocument = YAML.load(path.join(__dirname, './category.yaml'));
 const foodSwaggerDocument = YAML.load(path.join(__dirname, './food.yaml'));
 const orderSwaggerDocument = YAML.load(path.join(__dirname, './order.yaml'));
 const restaurantSwaggerDocument = YAML.load(path.join(__dirname, './restaurant.yaml'));
@@ -38,6 +39,7 @@ openapi: '3.0.0',
     ...authSwaggerDocument.paths,
     ...userSwaggerDocument.paths,
     ...adminSwaggerDocument.paths,
+    ...categorySwaggerDocument.paths,
     ...foodSwaggerDocument.paths,
     ...orderSwaggerDocument.paths,
     ...restaurantSwaggerDocument.paths,

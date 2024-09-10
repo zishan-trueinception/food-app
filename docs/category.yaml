@@ -1,0 +1,156 @@
+openapi: 3.0.0
+info:
+  title: Category API
+  description: API for managing categories with JWT authentication.
+  version: 1.0.0
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - BearerAuth: []
+
+paths:
+  /api/v1/category/create:
+    post:
+      summary: Create a new category
+      description: Creates a new category with a title and optional image URL. JWT authentication required.
+      tags:
+        - Categories
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Electronics
+                imageUrl:
+                  type: string
+                  example: "https://example.com/images/electronics.jpg"
+      responses:
+        "200":
+          description: Category created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Category Created Successfully"
+                  newCategory:
+                    type: object
+                    properties:
+                      title:
+                        type: string
+                        example: Electronics
+                      imageUrl:
+                        type: string
+                        example: "https://example.com/images/electronics.jpg"
+        "401":
+          description: Unauthorized. JWT token missing or invalid.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Invalid or missing token"
+        "500":
+          description: Error while creating category
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Error while creating category"
+                  error:
+                    type: string
+                    example: "Error details"
+
+  /api/v1/category/getAll:
+    get:
+      summary: Get all categories
+      description: Fetches all available categories. JWT authentication required.
+      tags:
+        - Categories
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Categories fetched successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  totalCategories:
+                    type: integer
+                    example: 10
+                  message:
+                    type: string
+                    example: "Categories found successfully"
+                  categories:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        title:
+                          type: string
+                          example: Electronics
+                        imageUrl:
+                          type: string
+                          example: "https://example.com/images/electronics.jpg"
+        "401":
+          description: Unauthorized. JWT token missing or invalid.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Invalid or missing token"
+        "500":
+          description: Error in fetching categories
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Error in fetching categories"
+                  error:
+                    type: string
+                    example: "Error details"
