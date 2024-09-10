@@ -6,7 +6,7 @@ paths:
       tags:
         - Users
       security:
-        - BearerAuth: []  # This enforces JWT authentication
+        - BearerAuth: [] # This enforces JWT authentication
       parameters:
         - in: query
           name: userID
@@ -56,7 +56,7 @@ paths:
       tags:
         - Users
       security:
-        - BearerAuth: []  # This enforces JWT authentication
+        - BearerAuth: [] # This enforces JWT authentication
       requestBody:
         required: true
         content:
@@ -102,7 +102,7 @@ paths:
       tags:
         - Users
       security:
-        - BearerAuth: []  # This enforces JWT authentication
+        - BearerAuth: [] # This enforces JWT authentication
       requestBody:
         required: true
         content:
@@ -143,13 +143,13 @@ paths:
           description: Incorrect old password
 
   /api/v1/user/resetPassword:
-    put:
+    post:
       summary: Reset User Password
       description: Resets the user's password by verifying the email and security answer.
       tags:
         - Users
       security:
-        - BearerAuth: []  # This enforces JWT authentication
+        - BearerAuth: [] # This enforces JWT authentication
       requestBody:
         required: true
         content:
@@ -194,7 +194,7 @@ paths:
       tags:
         - Users
       security:
-        - BearerAuth: []  # This enforces JWT authentication
+        - BearerAuth: [] # This enforces JWT authentication
       requestBody:
         required: true
         content:
@@ -224,14 +224,14 @@ paths:
         "500":
           description: Error in deleting user
 
-  /api/v1/user/uploadProfileImage:
-    post:
+  /api/v1/user/profileImage:
+    put:
       summary: Upload Profile Image
       description: Uploads a profile image for the authenticated user.
       tags:
         - Users
       security:
-        - BearerAuth: []  # This enforces JWT authentication
+        - BearerAuth: [] # This enforces JWT authentication
       requestBody:
         required: true
         content:
