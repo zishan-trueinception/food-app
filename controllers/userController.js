@@ -3,6 +3,7 @@
 const userModel = require("../models/userModel")
 const bcrypt = require('bcryptjs');
 const multer = require('multer');
+const path = require('path');
 
 const getUserController = async (req,res) => {
     try {
@@ -194,40 +195,39 @@ const deleteUserController = async (req,res) => {
 
 // Upload Profile Image
 const profileImageController = async (req, res) => {
-    jwt.verify(req.token, secretkey, async (err, authData) => {
-        if (err) {
-            res.status(401).send({ result: 'Invalid Token' });
-        }
-        
         try {
             // Get the file path
             const fieldname = req.file.fieldname;
             const filePath = req.file.path;
+            const user = await userModel.findById({_id:req.body.id});
+            // validation
+            if(!user){
+                return res.status(404).send({
+                    success:false,
+                    message:"User not found"
+                })
+            }
+            // update user data
+            const {image} = req.body
+            const updated= user.profile = `${filePath}`;
+            // save user
+            await user.save()
 
-            // Update the user's profile with the file path
-            const updatedUser = await userSchema.findOneAndUpdate(
-                { _id: authData.user._id },
-                { 'profile.path': filePath, 'profile.fieldname': fieldname },
-                { new: true }
-            );
 
-            if (!updatedUser) {
+
+            if (!user) {
                 return res.status(404).send('User not found');
             }
 
-            // Access the username from the updatedUser object
-            const username = updatedUser.username;
-
             res.status(200).send({ 
                 message: 'File uploaded successfully', 
-                user: updatedUser, 
+                user, 
             });
         } catch (error) {
             console.error(error);
             res.status(500).send('Server error');
         }
-    });
-};
+    };
        
 
 
@@ -237,5 +237,5 @@ module.exports = {
     updatePasswordController,
     resetPasswordController,
     deleteUserController,
-    profileImageController
+    profileImageController,upload
 }

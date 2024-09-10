@@ -84,6 +84,10 @@ paths:
             schema:
               type: object
               properties:
+                _id:
+                  type: string 
+                  example: "609b5c9fe8a7d812dc1e24a1"
+                  description: Admin id
                 email:
                   type: string
                   example: admin@example.com
@@ -93,6 +97,7 @@ paths:
                   example: "securePassword123"
                   description: Admin password for login
               required:
+                - _id
                 - email
                 - password
       responses:

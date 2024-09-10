@@ -18,7 +18,7 @@ const createfoodController = async (req, res) => {
              rating 
             } = req.body;
             if (!title || !description || !price || !restaurant) {
-                return res.status(500).send({
+                return res.status(404).send({
                     success: false, 
                     message: "Please provide all fields"
                 })
