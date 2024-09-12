@@ -9,6 +9,7 @@ const {
     upload
  } = require('../controllers/userController');
 const { authMiddleware } = require('../middlewares/authMiddleware');
+const { verifyController } = require('../controllers/authController ');
 const router = expres.Router();
 
 //routes
@@ -29,6 +30,7 @@ router.delete('/deleteUser',authMiddleware,deleteUserController)
 
 // UPDATE PROFILE IMAGE | POST 
 router.put('/profileImage',upload,authMiddleware,profileImageController)
+
 
 
 

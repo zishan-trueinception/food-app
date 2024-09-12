@@ -42,7 +42,7 @@ openapi: '3.0.0',
     ...categorySwaggerDocument.paths,
     ...foodSwaggerDocument.paths,
     ...orderSwaggerDocument.paths,
-    ...restaurantSwaggerDocument.paths,
+   // ...restaurantSwaggerDocument.paths,
   },
   
 };

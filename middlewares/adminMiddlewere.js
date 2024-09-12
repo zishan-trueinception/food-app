@@ -2,7 +2,7 @@ const adminModel = require("../models/adminModel");
 const userModel = require("../models/userModel"); 
 module.exports= async (req, res, next) => {
     try {
-      const user = await adminModel.findById(req.body._id);
+      const user = await adminModel.findOne({email: req.body.email});
       if(user.usertype !== "admin"){
           return res.status(401).send({
               success: false,  

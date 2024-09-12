@@ -4,7 +4,7 @@ paths:
       summary: Create food
       description: Creates a new food item.
       tags:
-        - Food
+        - Admin Control
       security:
         - BearerAuth: [] # This enforces JWT authentication
       requestBody:
@@ -14,9 +14,6 @@ paths:
             schema:
               type: object
               properties:
-                _id:
-                  type: string
-                  example: "admin _id: 609dcd72699a1f02b8c9f0d7"
                 title:
                   type: string
                   example: "Pizza"
@@ -28,7 +25,7 @@ paths:
                   example: 10.99
                 imageUrl:
                   type: string
-                  example: "https://example.com/pizza.jpg"
+                  example: "https://www.foodandwine.com/thmb/Wd4lBRZz3X_8qBr69UOu2m7I2iw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg"
                 foodTags:
                   type: array
                   items:
@@ -100,10 +97,12 @@ paths:
         '500':
           description: Error in fetching foods
 
-  /api/v1/food/{id}:
+  /api/v1/food/get/{id}:
     get:
       summary: Get single food
       description: Fetches a single food item by its ID.
+      tags:
+        - Food
       parameters:
         - in: path
           name: id
@@ -161,5 +160,109 @@ paths:
           description: No food found for this restaurant
         '500':
           description: Error in fetching food
+  
+  /api/v1/food/update/{id}:
+    put:
+      summary: Update food
+      description: Updates an existing food item by its ID.
+      tags: 
+        -  Admin Control
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            description: The ID of the food to update.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: "Updated Pizza"
+                description:
+                  type: string
+                  example: "Updated description"
+                price:
+                  type: number
+                  example: 12.99
+                imageUrl:
+                  type: string
+                  example: "https://example.com/updated_pizza.jpg"
+                foodTags:
+                  type: array
+                  items:
+                    type: string
+                  example: ["vegan", "cheesy"]
+                category:
+                  type: string
+                  example: "Fast Food"
+                code:
+                  type: string
+                  example: "PIZ456"
+                isAvailable:
+                  type: boolean
+                  example: false
+                restaurant:
+                  type: string
+                  example: "609dcd72699a1f02b8c9f0d7"
+                rating:
+                  type: number
+                  example: 4.8
+      responses:
+        '200':
+          description: Food updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Food updated successfully"
+        '404':
+          description: No food found with this ID
+        '500':
+          description: Error in updating food
+
+  /api/v1/food/delete/{id}:
+    delete:
+      summary: Delete food
+      description: Deletes a food item by its ID.
+      tags:
+        -  Admin Control
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            description: The ID of the food to delete.
+      responses:
+        '200':
+          description: Food deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Food deleted successfully"
+        '404':
+          description: No food found with this ID
+        '500':
+          description: Error in deleting food
+
 
  

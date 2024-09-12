@@ -4,7 +4,7 @@ paths:
       summary: Create a new category
       description: Creates a new category with a title and optional image URL. JWT authentication required.
       tags:
-        - Categories
+        - Admin Control
       security:
         - BearerAuth: []
       requestBody:
@@ -14,9 +14,6 @@ paths:
             schema:
               type: object
               properties:
-                _id:
-                  type: string
-                  example: "1234567890"
                 title:
                   type: string
                   example: Electronics
@@ -45,10 +42,10 @@ paths:
                         example: "1234567890"
                       title:
                         type: string
-                        example: Electronics
+                        example: Veg Food
                       imageUrl:
                         type: string
-                        example: "https://example.com/images/electronics.jpg"
+                        example: "https://c.ndtvimg.com/2020-09/if4pp5j8_vegetarian_625x300_30_September_20.jpg"
         "401":
           description: Unauthorized. JWT token missing or invalid.
           content:
@@ -111,10 +108,10 @@ paths:
                       properties:
                         title:
                           type: string
-                          example: Electronics
+                          example: Fast Food
                         imageUrl:
                           type: string
-                          example: "https://example.com/images/electronics.jpg"
+                          example: "https://c.ndtvimg.com/2020-09/if4pp5j8_vegetarian_625x300_30_September_20.jpg"
         "401":
           description: Unauthorized. JWT token missing or invalid.
           content:

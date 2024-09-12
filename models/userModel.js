@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { stringGen } = require('../utils/stringGen');
 
 // schema
 
@@ -36,6 +37,14 @@ const userSchema = new mongoose.Schema({
     answer:{
         type: String,
         require:[true, "Answer is required"]
+    },
+    isVerified:{
+        type: Boolean,
+        default: false
+    },
+    verifyToken:{
+        type: String,
+        default: null
     }
 },
 {timestamps: true});
