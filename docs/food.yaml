@@ -241,7 +241,7 @@ paths:
       summary: Delete food
       description: Deletes a food item by its ID.
       tags:
-        -  Admin Control\
+        -  Admin Control
       security:
         - BearerAuth: [] # This enforces JWT authentication
       parameters:
