@@ -7,13 +7,13 @@ paths:
         - Users
       security:
         - BearerAuth: [] # This enforces JWT authentication
-      parameters:
-        - in: query
-          name: userID
-          required: true
-          schema:
-            type: string
-            example: "609dcd72699a1f02b8c9f0d7"
+      # parameters:
+      #   - in: query
+      #     name: userID
+      #     required: true
+      #     schema:
+      #       type: string
+      #       example: "609dcd72699a1f02b8c9f0d7"
       responses:
         "200":
           description: User found successfully
@@ -33,11 +33,11 @@ paths:
                     properties:
                       username:
                         type: string
-                        example: JohnDoe
+                        example: Danish
                       email:
                         type: string
                         format: email
-                        example: johndoe@example.com
+                        example: Danish@example.com
                       address:
                         type: string
                         example: 123 Main St
@@ -64,18 +64,18 @@ paths:
             schema:
               type: object
               properties:
-                id:
-                  type: string
-                  example: "609dcd72699a1f02b8c9f0d7"
+                # _id:
+                #   type: string
+                #   example: "609dcd72699a1f02b8c9f0d7"
                 username:
                   type: string
-                  example: JohnDoe
+                  example: Rahul
                 address:
                   type: string
-                  example: 123 Main St
+                  example: bhopal
                 phone:
                   type: string
-                  example: "123-456-7890"
+                  example: "1111111111"
       responses:
         "200":
           description: User updated successfully

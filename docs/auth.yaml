@@ -14,20 +14,20 @@ paths:
               properties:
                 username:
                   type: string
-                  example: JohnDoe
+                  example: Danish
                 email:
                   type: string
                   format: email
-                  example: johndoe@example.com
+                  example: Danish@example.com
                 password:
                   type: string
-                  example: "password123"
+                  example: "1234"
                 address:
                   type: string
-                  example: "123 Main St"
+                  example: "At post Nashik"
                 phone:
                   type: string
-                  example: "123-456-7890"
+                  example: "1234567890"
                 answer:
                   type: string
                   example: "My favorite color is blue"
@@ -103,10 +103,10 @@ paths:
                 email:
                   type: string
                   format: email
-                  example: johndoe@example.com
+                  example: Danish@example.com
                 password:
                   type: string
-                  example: "password123"
+                  example: "1234"
       responses:
         '200':
           description: Login successful

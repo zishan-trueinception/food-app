@@ -5,7 +5,7 @@ const  {
     updateCatController, 
     deleteCatController
 }  = require('../controllers/categoryController');
-const { authMiddleware } = require('../middlewares/authMiddleware');
+const { authMiddleware, adminAccessMiddleware } = require('../middlewares/authMiddleware');
 const adminMiddlewere = require('../middlewares/adminMiddlewere');
 
 const router = expres.Router();
@@ -13,15 +13,15 @@ const router = expres.Router();
 //routes
 
 // POST CATEFORY ROUTE | POST
-router.post("/create",adminMiddlewere,createCatergoryController);
+router.post("/create",adminAccessMiddleware,createCatergoryController);
 
 // GET ALL CATEGORY ROUTE | GET
-router.get('/getAll',getAllCatController)
+router.get('/getAll',authMiddleware,getAllCatController)
 
 // UPDATE CATEGORY ROUTE | PUT
-router.put('/update/:id',adminMiddlewere,updateCatController)
+router.put('/update/:id',adminAccessMiddleware,updateCatController)
 
 // DELETE CATEGORY ROUTE | PUT
-router.delete('/delete/:id',adminMiddlewere,deleteCatController)
+router.delete('/delete/:id',adminAccessMiddleware,deleteCatController)
 
 module.exports = router

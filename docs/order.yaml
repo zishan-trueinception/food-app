@@ -1,17 +1,12 @@
 paths:
-  /api/v1/food/update/{id}:
-    put:
-      summary: Update food
-      description: Updates an existing food item by its ID.
-      tags: 
-        -  orders
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: string
-            description: The ID of the food to update.
+  /api/v1/food/placeorder:
+    post:
+      summary: Place order
+      description: Places a new order with the provided cart and payment details.
+      tags:
+        - orders
+      security:
+        - BearerAuth: []
       requestBody:
         required: true
         content:
@@ -19,41 +14,27 @@ paths:
             schema:
               type: object
               properties:
-                title:
-                  type: string
-                  example: "Updated Pizza"
-                description:
-                  type: string
-                  example: "Updated description"
-                price:
-                  type: number
-                  example: 12.99
-                imageUrl:
-                  type: string
-                  example: "https://example.com/updated_pizza.jpg"
-                foodTags:
+                cart:
                   type: array
                   items:
-                    type: string
-                  example: ["vegan", "cheesy"]
-                category:
-                  type: string
-                  example: "Fast Food"
-                code:
-                  type: string
-                  example: "PIZ456"
-                isAvailable:
-                  type: boolean
-                  example: false
-                restaurant:
-                  type: string
-                  example: "609dcd72699a1f02b8c9f0d7"
-                rating:
-                  type: number
-                  example: 4.8
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        example: "66d819965a757354b8fc653c"
+                      title_:
+                        type: string
+                        example: "Delicious Pizza"
+                      description:
+                        type: string
+                        example: "A crispy and delicious pizza with tomato sauce and pizza."
+                      price:
+                        type: number
+                        example: 10.99
+                
       responses:
         '200':
-          description: Food updated successfully
+          description: Order placed successfully
           content:
             application/json:
               schema:
@@ -64,48 +45,32 @@ paths:
                     example: true
                   message:
                     type: string
-                    example: "Food updated successfully"
+                    example: "Order placed successfully"
+                  newOrder:
+                    type: object
+                    properties:
+                      foods:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            foodId:
+                              type: string
+                            price:
+                              type: number
         '404':
-          description: No food found with this ID
+          description: Validation error, missing cart or payment details
         '500':
-          description: Error in updating food
+          description: Error in placing order
 
-  /api/v1/food/delete/{id}:
-    delete:
-      summary: Delete food
-      description: Deletes a food item by its ID.
-      tags:
-        -  orders
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: string
-            description: The ID of the food to delete.
-      responses:
-        '200':
-          description: Food deleted successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    example: true
-                  message:
-                    type: string
-                    example: "Food deleted successfully"
-        '404':
-          description: No food found with this ID
-        '500':
-          description: Error in deleting food
-
-  /api/v1/order/status/{id}:
-    put:
+  /api/v1/food/orderstatus/{id}:
+    post:
       summary: Update order status
       description: Updates the status of an order by its ID.
+      tags:
+        - Admin Control
+      security:
+        - BearerAuth: []
       parameters:
         - in: path
           name: id
@@ -141,59 +106,3 @@ paths:
           description: No order found with this ID
         '500':
           description: Error in updating order status
-
-  /api/v1/order/place:
-    post:
-      summary: Place order
-      description: Places a new order with the provided cart and payment details.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                cart:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      foodId:
-                        type: string
-                        example: "609dcd72699a1f02b8c9f0d7"
-                      price:
-                        type: number
-                        example: 10.99
-                id:
-                  type: string
-                  example: "buyerId"
-      responses:
-        '200':
-          description: Order placed successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    example: true
-                  message:
-                    type: string
-                    example: "Order placed successfully"
-                  newOrder:
-                    type: object
-                    properties:
-                      foods:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            foodId:
-                              type: string
-                            price:
-                              type: number
-        '404':
-          description: Validation error, missing cart or payment details
-        '500':
-          description: Error in placing order
