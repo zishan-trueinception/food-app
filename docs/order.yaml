@@ -19,15 +19,19 @@ paths:
                   items:
                     type: object
                     properties:
-                      foodId:
+                      _id:
                         type: string
-                        example: "609dcd72699a1f02b8c9f0d7"
+                        example: "66d819965a757354b8fc653c"
+                      title_:
+                        type: string
+                        example: "Delicious Pizza"
+                      description:
+                        type: string
+                        example: "A crispy and delicious pizza with tomato sauce and pizza."
                       price:
                         type: number
                         example: 10.99
-                id:
-                  type: string
-                  example: "buyerId"
+                
       responses:
         '200':
           description: Order placed successfully

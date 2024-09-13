@@ -13,15 +13,15 @@ const router = expres.Router();
 //routes
 
 // POST CATEFORY ROUTE | POST
-router.post("/create",createCatergoryController);
+router.post("/create",adminAccessMiddleware,createCatergoryController);
 
 // GET ALL CATEGORY ROUTE | GET
-router.get('/getAll',getAllCatController)
+router.get('/getAll',authMiddleware,getAllCatController)
 
 // UPDATE CATEGORY ROUTE | PUT
-router.put('/update/:id',authMiddleware,updateCatController)
+router.put('/update/:id',adminAccessMiddleware,updateCatController)
 
 // DELETE CATEGORY ROUTE | PUT
-router.delete('/delete/:id',authMiddleware,deleteCatController)
+router.delete('/delete/:id',adminAccessMiddleware,deleteCatController)
 
 module.exports = router

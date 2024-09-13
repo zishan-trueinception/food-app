@@ -21,7 +21,7 @@ paths:
                   example: Danish@example.com
                 password:
                   type: string
-                  example: "pass123"
+                  example: "1234"
                 address:
                   type: string
                   example: "At post Nashik"
@@ -106,7 +106,7 @@ paths:
                   example: Danish@example.com
                 password:
                   type: string
-                  example: "pass123"
+                  example: "1234"
       responses:
         '200':
           description: Login successful

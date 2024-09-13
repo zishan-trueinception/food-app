@@ -103,6 +103,8 @@ paths:
       description: Fetches a single food item by its ID.
       tags:
         - Food
+      security:
+        - BearerAuth: [] # This enforces JWT authentication
       parameters:
         - in: path
           name: id
@@ -167,6 +169,8 @@ paths:
       description: Updates an existing food item by its ID.
       tags: 
         -  Admin Control
+      security:
+        - BearerAuth: [] # This enforces JWT authentication
       parameters:
         - in: path
           name: id
@@ -237,7 +241,9 @@ paths:
       summary: Delete food
       description: Deletes a food item by its ID.
       tags:
-        -  Admin Control
+        -  Admin Control\
+      security:
+        - BearerAuth: [] # This enforces JWT authentication
       parameters:
         - in: path
           name: id
